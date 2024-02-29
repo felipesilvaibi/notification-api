@@ -2,8 +2,6 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from presentation.errors.generic_errors import GenericServerError
-
 
 class SendNotificationInputPort(BaseModel):
     param_id_example: str
