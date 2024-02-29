@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 
-from main.middlewares.content_type import ContentTypeMiddleware
 from main.middlewares.cors import CORSMiddleware
-from main.middlewares.exception_handler import ExceptionHandlerMiddleware
+from main.middlewares.exception import ExceptionMiddleware
+from main.middlewares.logging import LoggingMiddleware
 
 
 def setup_middlewares(app: FastAPI):
     app.add_middleware(CORSMiddleware)
-    app.add_middleware(ContentTypeMiddleware)
-    app.add_middleware(ExceptionHandlerMiddleware)
+    app.add_middleware(LoggingMiddleware)
+    app.add_middleware(ExceptionMiddleware)
