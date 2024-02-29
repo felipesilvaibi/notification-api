@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from main.factories.notification_sender import \
     make_notification_sender_controller
+from main.routes.protocols import InputDTO, OutputDTO
 from presentation.controllers.notification_sender.notification_sender import (
     NotificationSenderController, SendNotificationInputPort,
     SendNotificationOutputPort)
@@ -13,11 +14,11 @@ def setup_routes(base_router: APIRouter):
     base_router.include_router(router)
 
 
-class SendNotificationInputDTO(SendNotificationInputPort):
+class SendNotificationInputDTO(InputDTO, SendNotificationInputPort):
     pass
 
 
-class SendNotificationOutputDTO(SendNotificationOutputPort):
+class SendNotificationOutputDTO(OutputDTO, SendNotificationOutputPort):
     pass
 
 

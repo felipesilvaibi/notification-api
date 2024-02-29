@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    LOG_LEVEL: str = "INFO"
+    LOG_LEVEL: str = "DEBUG"
 
     class Config:
         env_file = ".env"
