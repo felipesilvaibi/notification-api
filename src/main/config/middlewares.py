@@ -7,5 +7,5 @@ from main.middlewares.logging import LoggingMiddleware
 
 def setup_middlewares(app: FastAPI):
     app.add_middleware(CORSMiddleware)
-    app.add_middleware(LoggingMiddleware)
     app.add_middleware(ExceptionMiddleware)
+    app.add_middleware(LoggingMiddleware)

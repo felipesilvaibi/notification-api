@@ -14,7 +14,9 @@ class LoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         request_id = request.headers.get("X-Request-ID", self._generate_random_id())
 
-        request_params, is_topic_message = await self._extract_request_parameters(request)
+        request_params, is_topic_message = await self._extract_request_parameters(
+            request
+        )
 
         with logger.contextualize(request_id=request_id):
             logger.info(f"Request {request.method}: {request.url.path}")
@@ -24,13 +26,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
             else:
                 logger.debug(f"Payload: {request_params}")
 
-            try:
-                response = await call_next(request)
-            except Exception as e:
-                logger.error(e)
-                raise e
-
-            return response
+            return await call_next(request)
 
     async def _extract_request_parameters(self, request: Request) -> Tuple[str, bool]:
         if request.method == "GET":
@@ -43,9 +39,9 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 
             try:
                 body_json = json.loads(body)
-                if 'message' in body_json and 'data' in body_json['message']:
-                    data = body_json['message']['data']
-                    decoded_data = base64.b64decode(data).decode('utf-8')
+                if "message" in body_json and "data" in body_json["message"]:
+                    data = body_json["message"]["data"]
+                    decoded_data = base64.b64decode(data).decode("utf-8")
                     return json.loads(decoded_data), True
             except json.decoder.JSONDecodeError:
                 pass
