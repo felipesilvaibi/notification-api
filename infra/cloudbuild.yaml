@@ -24,12 +24,12 @@ steps:
       - "-c"
       - |
         echo 'LOCATION_NAME: "${_REGION}"' >> ./infra/config/${_ENVIRONMENT}.yaml
-        echo 'SERVICE_URI: "${_SERVICE_URI}"' >> ./infra/config/${_ENVIRONMENT}.yaml
+        echo '_SERVICE_URL: "${_SERVICE_URL}"' >> ./infra/config/${_ENVIRONMENT}.yaml
 
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: Deploy container image to Cloud Run
     entrypoint: gcloud
-    args:
+    args: 
       - "run"
       - "deploy"
       - "${_SERVICE_NAME}${_SUFFIX}"
@@ -40,33 +40,25 @@ steps:
       - "--service-account"
       - "${_SERVICE_NAME}@$PROJECT_ID.iam.gserviceaccount.com"
       - "--allow-unauthenticated"
-      - "--vpc-connector"
-      - "projects/${_VPC_PROJECT_ID}/locations/${_REGION}/connectors/${_VPC_NAME}"
-      - "--vpc-egress"
-      - "private-ranges-only"
       - "--min-instances"
       - "${_MIN_INSTANCES}"
       - "--max-instances"
       - "${_MAX_INSTANCES}"
       - "--env-vars-file"
       - "./infra/config/${_ENVIRONMENT}.yaml"
-      - "--set-secrets"
-      - "DB_URI=${_ENVIRONMENT}_${_SERVICE_NAME}_DB_URI:latest"
 
 logsBucket: "gs://${_SERVICE_NAME}-${_ENVIRONMENT}/cloud-build-logs"
 options:
   logging: GCS_ONLY
 
 substitutions:
-  _SUFFIX: "-dev"
-  _VPC_NAME: "conector-monitoring-dev"
-  _VPC_PROJECT_ID: "monitoring-dev-2023"
-  _ENVIRONMENT: dev
-  _SERVICE_URI: ""
-  _SERVICE_NAME: "monitoring-resource"
-  _REGION: "us-central1"
+  _ENVIRONMENT: "dev"
+  _MAX_INSTANCES: "2"
   _MIN_INSTANCES: "0"
-  _MAX_INSTANCES: "5"
+  _REGION: "us-east1"
+  _SERVICE_NAME: "notification-api"
+  _SERVICE_URL: ""
+  _SUFFIX: "-dev"
 
 images:
   - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-${_ENVIRONMENT}:$COMMIT_SHA"
