@@ -2,13 +2,15 @@ import sys
 
 from loguru import logger
 
-from main.config.settings import settings
+from src.main.config.settings import settings
 
 logger.remove()
 
 
 def custom_formatter():
-    format_string = "[{time:YYYY-MM-DD HH:mm:ss.SSS}] {extra[request_id]}[{level}] {message}"
+    format_string = (
+        "[{time:YYYY-MM-DD HH:mm:ss.SSS}] {extra[request_id]}[{level}] {message}"
+    )
     return format_string
 
 

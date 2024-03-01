@@ -1,11 +1,12 @@
 from fastapi import APIRouter
 
-from main.factories.notification_sender import \
-    make_notification_sender_controller
-from main.routes.protocols import InputDTO, OutputDTO
-from presentation.controllers.notification_sender.notification_sender import (
-    NotificationSenderController, SendNotificationInputPort,
-    SendNotificationOutputPort)
+from src.main.factories.notification_sender import make_notification_sender_controller
+from src.main.routes.protocols import InputDTO, OutputDTO
+from src.presentation.controllers.notification_sender.notification_sender import (
+    NotificationSenderController,
+    SendNotificationInputPort,
+    SendNotificationOutputPort,
+)
 
 router = APIRouter(prefix="/notification", tags=["Notification"])
 

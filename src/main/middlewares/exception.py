@@ -3,7 +3,10 @@ from fastapi.responses import JSONResponse
 from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from presentation.errors.generic_errors import GenericClientError, GenericServerError
+from src.presentation.errors.generic_errors import (
+    GenericClientError,
+    GenericServerError,
+)
 
 
 def bad_request(error: str, status_code: int = 400) -> JSONResponse:

@@ -20,4 +20,4 @@ COPY ./src /code/src
 
 EXPOSE 8080
 
-CMD ["uvicorn", "main.config.app:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "1", "--app-dir", "src"]
+CMD ["uvicorn", "--host", "0.0.0.0", "--port", "8080", "--workers", "1", "src.main.config.app:app"]

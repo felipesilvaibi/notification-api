@@ -7,7 +7,7 @@ from typing import Callable, Tuple
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from main.config.logger import logger
+from src.main.config.logger import logger
 
 
 class LoggingMiddleware(BaseHTTPMiddleware):
