@@ -18,6 +18,6 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./src /code/src
 
-EXPOSE 8000
+EXPOSE 8080
 
-CMD ["uvicorn", "src.main.config.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "--app-dir", "src", "--host", "0.0.0.0", "--port", "8080", "--workers", "1", "--factory", "src.main.config.app:app"]
