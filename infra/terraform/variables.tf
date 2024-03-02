@@ -1,19 +1,19 @@
 # GCP: General
 variable "gcp_project" {
   type        = string
-  description = "The project ID to create the application under."
+  description = "The project ID to create the application under"
   default     = "angular-box-415904"
 }
 
 variable "gcp_region" {
   type        = string
-  description = "The location region to serve the app from."
+  description = "The location region to serve the app from"
   default     = "us-central1"
 }
 
 variable "gcp_zone" {
   type        = string
-  description = "The location zone to serve the app from."
+  description = "The location zone to serve the app from"
   default     = "us-central1-c"
 }
 
