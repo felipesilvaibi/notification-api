@@ -2,7 +2,9 @@ name: Production
 
 on:
   workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: ["Terraform Apply"]
+    types: [completed]
     branches: [main]
 
 concurrency:
