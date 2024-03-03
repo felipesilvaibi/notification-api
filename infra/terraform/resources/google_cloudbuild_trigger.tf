@@ -27,7 +27,7 @@ resource "google_cloudbuild_trigger" "trigger" {
     _ENVIRONMENT   = var.branch
     _MIN_INSTANCES = var.min_instances
     _MAX_INSTANCES = var.max_instances
-    _SERVICE_URI   = google_cloud_run_service.service.status[0].url
+    _SERVICE_URL   = google_cloud_run_service.service.status[0].url
   }
 
   depends_on = [
