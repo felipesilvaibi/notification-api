@@ -1,4 +1,4 @@
-# notification-api
+# 🛎️ Notification API
 
 ## About
 
@@ -133,7 +133,7 @@ For the current project, we are utilizing Google Cloud to manage the infrastruct
    - Service Account User
    - Service Account Admin
 
-5. **GitHub Actions Secrets**: Access the service account in GitHub Actions, generate a `GCP_SA_KEY` in JSON format, and add it to the GitHub repo's actions secrets. Also, add the `GH_TOKEN` (GitHub token) to the repo's secrets.
+5. **GitHub Actions Secrets**: Access the githubactions service account, generate a `GCP_SA_KEY` in JSON format, and add it to the GitHub repo's actions secrets. Also, add the `GH_TOKEN` (GitHub token) to the repo's secrets.
 
 6. **Cloud Storage Bucket**: Create a bucket in Cloud Storage using the repository name and branch as the naming convention (e.g., `notification-api-main`).
 
