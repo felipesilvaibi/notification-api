@@ -98,3 +98,48 @@ Your provided Dockerfile is set up for a multi-stage build, optimizing dependenc
 ## CI/CD Configuration
 CI/CD Configuration
 You've outlined workflows for deployment, Terraform apply, plan, and destroy. Ensure these workflows are configured in your .github/workflows directory, adjusting for your specific project and operational needs.
+
+## Google Cloud Integration
+
+For the current project, we are utilizing Google Cloud to manage the infrastructure. To maximize the project's potential, the following configurations are necessary:
+
+1. **Create a Google Cloud Account**: Begin by signing up for a Google Cloud account if you haven't already.
+
+2. **Activate the Free Tier**: Take advantage of Google Cloud's free tier to access many services without incurring costs.
+
+3. **Enable Necessary APIs**: Activate the following APIs in your Google Cloud project:
+   - **Identity and Access Management (IAM) API**: Essential for managing access and identities.
+   - **Cloud Resource Manager API**: Required for managing resources.
+   - **Secret Manager API**: For storing and accessing secrets safely.
+   - **Cloud Run API** (if necessary): If you're deploying applications with Cloud Run.
+
+4. **Service Account for GitHub Actions**: Create a service account to be used by GitHub Actions with the following permissions:
+   - Firebase Remote Config Administrator
+   - App Engine Service Admin
+   - App Engine Admin
+   - Cloud Functions Admin
+   - Cloud Run Admin
+   - Cloud Scheduler Admin
+   - Compute Storage Admin
+   - Secret Manager Admin
+   - Artifact Registry Repository Admin
+   - Storage Admin
+   - Pub/Sub Admin
+   - App Engine Flexible Environment Service Agent
+   - App Engine Creator
+   - Cloud Build Editor
+   - App Engine Deployer
+   - Service Account User
+   - Service Account Admin
+
+5. **GitHub Actions Secrets**: Access the service account in GitHub Actions, generate a `GCP_SA_KEY` in JSON format, and add it to the GitHub repo's actions secrets. Also, add the `GH_TOKEN` (GitHub token) to the repo's secrets.
+
+6. **Cloud Storage Bucket**: Create a bucket in Cloud Storage using the repository name and branch as the naming convention (e.g., `notification-api-main`).
+
+7. **Cloud Build Repository Connection**: Create and authenticate a connection with your repository in Cloud Build.
+
+8. **Secret Manager Configuration**: In Google Cloud's Secret Manager, configure a secret named `notification-api_main_telegram_bot_token`. This will be used to set the `TELEGRAM_BOT_TOKEN` environment variable.
+
+**Note**: To obtain the Telegram bot token, you must first create a bot through Telegram's BotFather. For a step-by-step guide, you can refer to [this tutorial on YouTube](https://www.youtube.com/watch?v=UQrcOj63S2o).
+
+This setup ensures your project is fully integrated with Google Cloud, leveraging its powerful infrastructure and services for optimal performance and scalability.
