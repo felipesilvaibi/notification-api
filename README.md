@@ -84,9 +84,10 @@ For notifications related to trade operations, the payload should include additi
   "message": {
     "trade_action": "BUY",
     "indicators": {
-      "weekly_rsi": 70,
+      "date": "2024-03-03T12:00:00Z",
+      "weekly_rsi": ">70",
       "monthly_rsi": 60,
-      "mvrv_z_score": 2
+      "mvrv_z_score": 2.0
     }
   }
 }
