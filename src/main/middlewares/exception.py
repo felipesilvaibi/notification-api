@@ -29,5 +29,6 @@ class ExceptionMiddleware(BaseHTTPMiddleware):
             error = gen_server_error.args[0]
             logger.error(gen_server_error.args[0])
             return server_error(gen_server_error.args[0])
-        except Exception:
+        except Exception as e:
+            logger.error(e)
             return server_error("Internal server error")

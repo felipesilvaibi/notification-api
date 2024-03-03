@@ -1,11 +1,10 @@
 from fastapi import APIRouter
 
 from src.main.factories.notification_sender import make_notification_sender_controller
-from src.main.routes.protocols import InputDTO, OutputDTO
+from src.main.routes.dtos import InputDTO
 from src.presentation.controllers.notification_sender.notification_sender import (
     NotificationSenderController,
     SendNotificationInputPort,
-    SendNotificationOutputPort,
 )
 
 router = APIRouter(prefix="/notification", tags=["Notification"])
@@ -19,13 +18,9 @@ class SendNotificationInputDTO(InputDTO, SendNotificationInputPort):
     pass
 
 
-class SendNotificationOutputDTO(OutputDTO, SendNotificationOutputPort):
-    pass
-
-
-@router.post("/", response_model=SendNotificationOutputDTO)
+@router.post("/")
 async def send_notification(
     request: SendNotificationInputDTO,
-) -> SendNotificationOutputDTO:
+) -> None:
     controller: NotificationSenderController = make_notification_sender_controller()
     return await controller.handle(request)

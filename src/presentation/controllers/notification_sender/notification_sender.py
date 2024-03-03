@@ -1,19 +1,40 @@
-from datetime import datetime
+from enum import Enum
+from typing import Union
 
 from pydantic import BaseModel
 
+from src.domain.model.message import Message
+from src.domain.usecases.telegram_notifier import (
+    TelegramNotifierUsecase,
+    TelegramNotifierUsecaseInputPort,
+)
+
 
 class SendNotificationInputPort(BaseModel):
-    param_id_example: str
+    class NotificationType(str, Enum):
+        TELEGRAM = "TELEGRAM"
 
-
-class SendNotificationOutputPort(BaseModel):
-    date_of_transaction: datetime
+    type: NotificationType
+    recipient_id: str
+    message_type: Message.MessageType
+    message: Union[Message.GenericMessage, Message.TradeMessage]
 
 
 class NotificationSenderController:
 
-    async def handle(
-        self, input_port: SendNotificationInputPort
-    ) -> SendNotificationOutputPort:
-        return SendNotificationOutputPort(date_of_transaction=datetime.now())
+    def __init__(self, send_telegram_notification_usecase: TelegramNotifierUsecase):
+        self.telegram_notifier_usecase = send_telegram_notification_usecase
+
+    async def handle(self, input_port: SendNotificationInputPort) -> None:
+        if input_port.type == SendNotificationInputPort.NotificationType.TELEGRAM:
+            telegram_notifier_usecase_input_port = TelegramNotifierUsecaseInputPort(
+                recipient_id=input_port.recipient_id,
+                message_type=input_port.message_type,
+                message=input_port.message,
+            )
+
+            return await self.telegram_notifier_usecase.send(
+                telegram_notifier_usecase_input_port
+            )
+        else:
+            raise NotImplementedError("Notification type not implemented")
