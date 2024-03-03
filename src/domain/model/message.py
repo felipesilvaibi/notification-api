@@ -28,13 +28,19 @@ class Message(BaseModel):
 
     def format_message(self) -> str:
         if self.type == self.MessageType.GENERIC:
-            return self.message.content
+            return f"<p>{self.message.content}</p>"
         elif self.type == self.MessageType.TRADE:
             indicators_str = "\n".join(
-                f"• **{key}**: {value}"
+                f"• <b>{key}</b>: {value}"
                 for key, value in self.message.indicators.items()
             )
+            action_emoji = {
+                "BUY": "🟢",
+                "HOLD": "🟡",
+                "SELL": "🔴",
+            }.get(self.message.trade_action)
+
             return (
-                f"*Trade action*: **{self.message.trade_action}**\n\n"
-                f"*Indicators*:\n{indicators_str}"
+                f"<b>🚨 Trade action</b>: {action_emoji} <b>{self.message.trade_action}</b>\n\n"
+                f"<b>Indicators</b>:\n{indicators_str}"
             )

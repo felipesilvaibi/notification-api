@@ -1,8 +1,8 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from src.main.config.logger import logger
 from src.presentation.errors.generic_errors import (
     GenericClientError,
     GenericServerError,
@@ -23,12 +23,24 @@ class ExceptionMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
         except GenericClientError as gen_client_error:
             error = gen_client_error.args[0]
-            logger.warning(error)
+
+            if gen_client_error.args[1] is not None:
+                detailed_error = f"{error}: {gen_client_error.args[1]}"
+            else:
+                detailed_error = error
+
+            logger.warning(detailed_error)
             return bad_request(error)
         except GenericServerError as gen_server_error:
             error = gen_server_error.args[0]
-            logger.error(gen_server_error.args[0])
-            return server_error(gen_server_error.args[0])
+
+            if gen_server_error.args[1] is not None:
+                detailed_error = f"{error}: {gen_server_error.args[1]}"
+            else:
+                detailed_error = error
+
+            logger.error(detailed_error)
+            return server_error(error)
         except Exception as e:
             logger.error(e)
             return server_error("Internal server error")
