@@ -26,15 +26,15 @@ class Message(BaseModel):
     type: MessageType
     message: Union[GenericMessage, TradeMessage]
 
-
-def format_message(self) -> str:
-    if self.type == self.MessageType.GENERIC:
-        return self.message.content
-    elif self.type == self.MessageType.TRADE:
-        indicators_str = "\n".join(
-            f"• **{key}**: {value}" for key, value in self.message.indicators.items()
-        )
-        return (
-            f"*Trade action*: **{self.message.trade_action}**\n\n"
-            f"*Indicators*:\n{indicators_str}"
-        )
+    def format_message(self) -> str:
+        if self.type == self.MessageType.GENERIC:
+            return self.message.content
+        elif self.type == self.MessageType.TRADE:
+            indicators_str = "\n".join(
+                f"• **{key}**: {value}"
+                for key, value in self.message.indicators.items()
+            )
+            return (
+                f"*Trade action*: **{self.message.trade_action}**\n\n"
+                f"*Indicators*:\n{indicators_str}"
+            )
