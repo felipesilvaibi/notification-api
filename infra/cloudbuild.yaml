@@ -47,7 +47,7 @@ steps:
       - "--env-vars-file"
       - "./infra/config/${_ENVIRONMENT}.yaml"
       - "--set-secrets"
-      - "TELEGRAM_BOT_TOKEN=${_ENVIRONMENT}_${_SERVICE_NAME}_TELEGRAM_BOT_TOKEN:latest"
+      - "TELEGRAM_BOT_TOKEN=${_SERVICE_NAME}_${_ENVIRONMENT}_telegram_bot_token:latest"
 
 logsBucket: "gs://${_SERVICE_NAME}-${_ENVIRONMENT}/cloud-build-logs"
 options:
