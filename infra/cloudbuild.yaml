@@ -24,7 +24,7 @@ steps:
       - "-c"
       - |
         echo 'LOCATION_NAME: "${_REGION}"' >> ./infra/config/${_ENVIRONMENT}.yaml
-        echo '_SERVICE_URL: "${_SERVICE_URL}"' >> ./infra/config/${_ENVIRONMENT}.yaml
+        echo 'SERVICE_URL: "${_SERVICE_URL}"' >> ./infra/config/${_ENVIRONMENT}.yaml
 
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     id: Deploy container image to Cloud Run
