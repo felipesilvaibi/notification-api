@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 
-from src.main.factories.notification_sender import make_notification_sender_controller
+from src.main.factories.notification_sender_controller import (
+    make_notification_sender_controller,
+)
 from src.main.routes.dtos import InputDTO
 from src.presentation.controllers.notification_sender.notification_sender import (
     NotificationSenderController,
